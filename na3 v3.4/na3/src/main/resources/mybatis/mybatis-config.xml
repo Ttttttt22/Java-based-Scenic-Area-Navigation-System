@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 引用数据源配置文件 -->
+	<properties resource="mybatis/datasource.properties" />
+
+	<!-- 指定后，就不用在映射文件里的resultType属性值的类名前写包名 -->
+	<typeAliases>
+<!--		<package name="com.example.model"/>-->
+		<package name="com.example.dao.entity"/>
+	</typeAliases>
+	
+	<!-- development:开发模式， work:工作模式 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- 配置数据库连接信息 -->
+			<dataSource type="POOLED">
+				<!-- 下面的value属性值，从文件datasource.properties里引用而来 -->
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<!-- 本项目使用混合方式，只需要使用下面2个配置中的任何一个  -->
+		<mapper class="com.example.dao.mapper.UserMapper"/>
+		<mapper class="com.example.dao.mapper.SpotMapper"/>
+		<!-- 下面的xml配置是可以去掉的；如果同时写出，则位置只能在映射接口配置之后 -->
+		<mapper resource="mapper/UserMapper.xml"/>
+		<mapper resource="mapper/SpotMapper.xml"/>
+	</mappers>
+	
+</configuration>

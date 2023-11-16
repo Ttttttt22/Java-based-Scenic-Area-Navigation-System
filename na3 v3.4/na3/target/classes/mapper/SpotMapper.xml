@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 与数据表user相应的的映射文件内容，SQL命令里的#{字段名}相当于占位参数。 在Mybatis配置文件里使用标签typeAliases，則属性parameterType值（即占位参数类型）不用前缀“包名.” -->
+
+<mapper namespace="com.example.dao.mapper.SpotMapper">
+
+    <select id="getAllSpots" resultType="Spot">
+		select * from spot
+	</select>
+
+    <insert id="addSpot" parameterType="Spot">
+		insert ignore into spot(spid,spname,description) values (#{spid},#{spname},#{description})
+	</insert>
+
+    <update id="updateSpot" parameterType="Spot">
+        update spot set  spid=#{spid},spname=#{spname},description=#{description}where spid=#{spid}
+    </update>
+
+    <delete id="deleteSpot" parameterType="Spot">
+        delete from spot where spid=#{spid}
+    </delete>
+
+    <select id="getSpot" parameterType="String" resultType="Spot">
+		select * from spot where spid=#{id}
+	</select>
+
+    <delete id="deleteAllSpots" parameterType="Spot">
+        delete from spot
+    </delete>
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 与数据表user相应的的映射文件内容，SQL命令里的#{字段名}相当于占位参数。 在Mybatis配置文件里使用标签typeAliases，則属性parameterType值（即占位参数类型）不用前缀“包名.” -->
+
+<mapper namespace="com.example.dao.mapper.UserMapper">
+
+	<select id="getAllUsers" resultType="User">
+		select * from user order by	password
+	</select>
+
+	<select id="getUserByUsernameAndPassword" parameterType="String" resultType="User">
+		select * from user where username=#{un} and password=#{pwd}
+	</select>
+
+	<insert id="addUser" parameterType="User">
+		insert ignore into user(username,password,realname,phonenumber) values (#{username},#{password},#{realname},#{phonenumber})
+	</insert>
+
+	<delete id="deleteUser" parameterType="User">
+		delete from user where username=#{un}
+	</delete>
+
+	<update id="updateUser" parameterType="User">
+		update user set username=#{username},password=#{password},realname=#{realname},phonenumber=#{phonenumber}where username=#{username}
+	</update>
+
+	<select id="getUserByUsername" parameterType="String" resultType="User">
+		select * from user where username=#{un}
+	</select>
+
+
+</mapper>
